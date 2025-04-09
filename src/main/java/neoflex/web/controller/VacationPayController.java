@@ -1,9 +1,7 @@
 package neoflex.web.controller;
 
-import neoflex.domain.strategy.VacationPayStrategy;
-import neoflex.domain.strategy.VacationPayStrategyBuilder;
+import neoflex.domain.strategy.PayStrategyBuilder;
 import org.springframework.beans.factory.ObjectFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +14,11 @@ import java.time.LocalDate;
 @RequestMapping("")
 public class VacationPayController {
 
-    @Autowired
-    private ObjectFactory<VacationPayStrategyBuilder> builderFactory;
+    private final ObjectFactory<PayStrategyBuilder> builderFactory;
+
+    public VacationPayController(ObjectFactory<PayStrategyBuilder> builderFactory) {
+        this.builderFactory = builderFactory;
+    }
 
     @GetMapping("/calculate")
     public double calculateVacationPay(
